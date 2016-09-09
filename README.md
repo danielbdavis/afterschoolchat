@@ -23,3 +23,17 @@ Then, to run:
 ## Running with Docker
 
 Tomas Tomecek put together a [Dockerized version of this app](https://github.com/TomasTomecek/open-house-2016-demo).
+
+
+## After School notes
+
+- setup
+    - brew install postgresql
+    - brew install redis
+    - pip install -r requirements.txt
+
+- In shell 1: redis-server /usr/local/etc/redis.conf
+- In shell 2: postgres
+  - createdb afterschoolchat
+  - migrate: DATABASE_URL=postgres:///afterschoolchat python manage.py migrate
+- heroku local
