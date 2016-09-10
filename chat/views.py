@@ -4,6 +4,13 @@ from django.db import transaction
 from django.shortcuts import render, redirect
 import haikunator
 from .models import Room
+from .models import Message
+from .serializers import RoomSerializer
+from .serializers import MessageSerializer
+
+class RoomViewSet(viewsets.ModelViewSet):
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer
 
 def about(request):
     return render(request, "chat/about.html")
