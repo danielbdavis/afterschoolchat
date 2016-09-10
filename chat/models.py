@@ -28,5 +28,5 @@ class Message(models.Model):
             'id': self.id,
             'handle': self.handle,
             'message': self.message,
-            'timestamp': self.formatted_timestamp,
+            'timestamp': self.timestamp,
             'room': self.room.id}
