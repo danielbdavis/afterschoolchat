@@ -6,7 +6,7 @@ import haikunator
 from .models import Room
 from .models import Message
 from .serializers import RoomSerializer
-from .serializers import MessageSerializer
+# from .serializers import MessageSerializer
 
 class RoomViewSet(viewsets.ModelViewSet):
     queryset = Room.objects.all()
