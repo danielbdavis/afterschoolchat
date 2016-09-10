@@ -12,6 +12,11 @@ from .serializers import RoomSerializer
 class RoomViewSet(viewsets.ModelViewSet):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
+    
+class MessageViewSet(viewsets.ModelViewSet):
+    queryset = Message.objects.all()
+    serializer_class = MessageSerializer
+    
 
 def about(request):
     return render(request, "chat/about.html")
