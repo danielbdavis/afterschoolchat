@@ -2,6 +2,7 @@ import random
 import string
 from django.db import transaction
 from django.shortcuts import render, redirect
+from rest_framework import viewsets
 import haikunator
 from .models import Room
 from .models import Message
