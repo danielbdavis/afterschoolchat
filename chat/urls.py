@@ -1,7 +1,8 @@
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth.models import User
-from rest_framework import routers, serializers, viewsets
+from rest_framework import routers
+from .views import RoomViewSet
 from . import views
 
 # Routers provide an easy way of automatically determining the URL conf.
