@@ -2,20 +2,40 @@ import random
 import string
 from django.db import transaction
 from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
 from rest_framework import viewsets
+from rest_framework import generics
+from rest_framework import permissions
 import haikunator
 from .models import Room
 from .models import Message
 from .serializers import RoomSerializer
 from .serializers import MessageSerializer
+from .serializers import UserSerializer
 
 class RoomViewSet(viewsets.ModelViewSet):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
     
 class MessageViewSet(viewsets.ModelViewSet):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+    
+class UserList(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    
+class UserDetail(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
     
 
 def about(request):
