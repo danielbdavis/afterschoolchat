@@ -6,9 +6,12 @@ from django.contrib.auth.models import User
 from rest_framework import viewsets
 from rest_framework import generics
 from rest_framework import permissions
+from rest_framework.permissions import AllowAny
+from rest_framework.decorators import api_view
 import haikunator
 from .models import Room
 from .models import Message
+from .permissions import IsStaffOrTargetUser
 from .serializers import RoomSerializer
 from .serializers import MessageSerializer
 from .serializers import UserSerializer
@@ -28,14 +31,35 @@ class MessageViewSet(viewsets.ModelViewSet):
     
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
-    
-class UserList(generics.ListAPIView):
-    queryset = User.objects.all()
+        
+class UserView(viewsets.ModelViewSet):
     serializer_class = UserSerializer
+    model = User
+ 
+    def get_permissions(self):
+        # allow non-authenticated user to create via POST
+        return (AllowAny() if self.request.method == 'POST' else IsStaffOrTargetUser()),
     
-class UserDetail(generics.RetrieveAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+# class UserList(generics.ListAPIView):
+#     queryset = User.objects.all()
+#     serializer_class = UserSerializer
+#
+# class UserDetail(generics.RetrieveAPIView):
+#     queryset = User.objects.all()
+#     serializer_class = UserSerializer
+#
+# @api_view(['POST'])
+# def create_auth(request):
+#     serialized = UserSerializer(data=request.DATA)
+#     if serialized.is_valid():
+#         User.objects.create_user(
+#             serialized.init_data['email'],
+#             serialized.init_data['username'],
+#             serialized.init_data['password']
+#         )
+#         return Response(serialized.data, status=status.HTTP_201_CREATED)
+#     else:
+#         return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
     
 
 def about(request):

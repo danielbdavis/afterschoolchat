@@ -10,12 +10,15 @@ from . import views
 router = routers.DefaultRouter()
 router.register(r'rooms', RoomViewSet)
 router.register(r'messages', MessageViewSet)
+router.register(r'accounts', views.UserView, 'list')
 
 urlpatterns = [
     url(r'^', include(router.urls)),
+
+    # url(r'^users/$', views.UserList.as_view()),
+    # url(r'^users/(?P<pk>[0-9]+)/$', views.UserDetail.as_view()),
     
-    url(r'^users/$', views.UserList.as_view()),
-    url(r'^users/(?P<pk>[0-9]+)/$', views.UserDetail.as_view()),
+    
     
     url(r'^$',  views.about, name='about'),
     url(r'^admin/', admin.site.urls),

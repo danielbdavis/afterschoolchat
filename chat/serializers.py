@@ -28,8 +28,8 @@ class RoomSerializer(serializers.ModelSerializer):
             'owner')
             
 class UserSerializer(serializers.ModelSerializer):
-    messages = serializers.PrimaryKeyRelatedField(many=True, queryset=Message.objects.all())
-    rooms = serializers.PrimaryKeyRelatedField(many=True, queryset=Room.objects.all())
+    messages = serializers.PrimaryKeyRelatedField(many=True, required=False, queryset=Message.objects.all())
+    rooms = serializers.PrimaryKeyRelatedField(many=True, required=False, queryset=Room.objects.all())
     
     class Meta:
         model = User
@@ -37,4 +37,15 @@ class UserSerializer(serializers.ModelSerializer):
             'id',
             'username',
             'messages',
-            'rooms')
+            'rooms',
+            'password')
+        write_only_fields = ('password',)
+        read_only_fields = ('is_staff', 'is_superuser', 'is_active', 'date_joined',)
+        
+    def create(self, validated_data):
+        user = User.objects.create(
+            username = validated_data['username']
+        )
+        user.set_password(validated_data['password'])
+        user.save()
+        return user
