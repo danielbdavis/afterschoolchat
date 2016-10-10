@@ -30,6 +30,9 @@ INSTALLED_APPS = (
 
 SITE_ID = 1
 
+# use console for email in local development
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
