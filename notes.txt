@@ -1,0 +1,4 @@
+django-registration:
+
+	- example templates at https://github.com/macropin/django-registration/tree/master/registration/templates/registration
+	

@@ -10,7 +10,7 @@ from . import views
 router = routers.DefaultRouter()
 router.register(r'rooms', RoomViewSet)
 router.register(r'messages', MessageViewSet)
-router.register(r'accounts', views.UserView, 'list')
+# router.register(r'accounts', views.UserView, 'list')
 
 urlpatterns = [
     url(r'^', include(router.urls)),
@@ -18,6 +18,7 @@ urlpatterns = [
     # url(r'^users/$', views.UserList.as_view()),
     # url(r'^users/(?P<pk>[0-9]+)/$', views.UserDetail.as_view()),
     
+    url(r'^accounts/', include('registration.backends.simple.urls')),
     
     
     url(r'^$',  views.about, name='about'),
