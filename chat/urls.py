@@ -18,7 +18,12 @@ urlpatterns = [
     # url(r'^users/$', views.UserList.as_view()),
     # url(r'^users/(?P<pk>[0-9]+)/$', views.UserDetail.as_view()),
     
+    # these are the django-registation urls
     url(r'^accounts/', include('registration.backends.simple.urls')),
+    
+    # these are from django-rest-auth
+    url(r'^rest-auth/', include('rest_auth.urls')),
+    url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),    
     
     
     url(r'^$',  views.about, name='about'),
