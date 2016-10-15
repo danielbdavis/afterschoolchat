@@ -27,6 +27,15 @@ class RoomSerializer(serializers.ModelSerializer):
             'label')
             # 'owner')
             
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = (
+            'id',
+            'username',
+            'email',
+            'first_name',)
+            
 # class UserSerializer(serializers.ModelSerializer):
 #     messages = serializers.PrimaryKeyRelatedField(many=True, required=False, queryset=Message.objects.all())
 #     rooms = serializers.PrimaryKeyRelatedField(many=True, required=False, queryset=Room.objects.all())

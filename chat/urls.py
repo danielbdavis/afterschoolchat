@@ -4,12 +4,14 @@ from django.contrib.auth.models import User
 from rest_framework import routers
 from .views import RoomViewSet
 from .views import MessageViewSet
+from .views import UserViewSet
 from . import views
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 router.register(r'rooms', RoomViewSet)
 router.register(r'messages', MessageViewSet)
+router.register(r'users', UserViewSet)
 # router.register(r'accounts', views.UserView, 'list')
 
 urlpatterns = [

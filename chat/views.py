@@ -14,7 +14,7 @@ from .models import Message
 from .permissions import IsStaffOrTargetUser
 from .serializers import RoomSerializer
 from .serializers import MessageSerializer
-# from .serializers import UserSerializer
+from .serializers import UserSerializer
 
 class RoomViewSet(viewsets.ModelViewSet):
     queryset = Room.objects.all()
@@ -31,6 +31,11 @@ class MessageViewSet(viewsets.ModelViewSet):
     
     # def perform_create(self, serializer):
     #     serializer.save(owner=self.request.user)
+    
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
         
 # class UserView(viewsets.ModelViewSet):
 #     serializer_class = UserSerializer
