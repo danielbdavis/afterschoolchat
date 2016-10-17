@@ -36,6 +36,12 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    
+    def dispatch(self, request, *args, **kwargs):
+        if kwargs.get('pk') == 'current' and request.user:
+            kwargs['pk'] = request.user.pk
+
+        return super(UserViewSet, self).dispatch(request, *args, **kwargs)
         
 # class UserView(viewsets.ModelViewSet):
 #     serializer_class = UserSerializer
