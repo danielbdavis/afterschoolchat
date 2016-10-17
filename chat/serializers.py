@@ -18,13 +18,17 @@ class MessageSerializer(serializers.ModelSerializer):
 
 class RoomSerializer(serializers.ModelSerializer):
     # owner = serializers.ReadOnlyField(source='owner.username')
+    
+    # members = serializers.ReadOnlyField()
+    members = serializers.PrimaryKeyRelatedField(many=True, required=False, queryset=User.objects.all())
 
     class Meta:
         model = Room
         fields = (
             'id',
             'name',
-            'label')
+            'label',
+            'members')
             # 'owner')
             
 class UserSerializer(serializers.ModelSerializer):

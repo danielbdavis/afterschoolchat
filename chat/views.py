@@ -9,12 +9,19 @@ from rest_framework import permissions
 from rest_framework.permissions import AllowAny
 from rest_framework.decorators import api_view
 import haikunator
+import logging
 from .models import Room
 from .models import Message
 from .permissions import IsStaffOrTargetUser
 from .serializers import RoomSerializer
 from .serializers import MessageSerializer
 from .serializers import UserSerializer
+
+from print_request import *
+
+
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
 
 class RoomViewSet(viewsets.ModelViewSet):
     queryset = Room.objects.all()
@@ -35,13 +42,29 @@ class MessageViewSet(viewsets.ModelViewSet):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     
-    def dispatch(self, request, *args, **kwargs):
-        if kwargs.get('pk') == 'current' and request.user:
-            kwargs['pk'] = request.user.pk
-
-        return super(UserViewSet, self).dispatch(request, *args, **kwargs)
+    def get_object(self):
+        print_request(self.request)
+        
+        pk = self.kwargs.get('pk')
+        
+        if pk == "current":
+            return self.request.user
+        else:
+            return super(UserViewSet, self).get_object()
+    
+    # def get(self, request, format=None):
+    #     print_request(request)
+    #     return super(UserViewSet, self).get(request, format)
+    
+    # def dispatch(self, request, *args, **kwargs):
+    #     print_request(request)
+    #
+    #     if kwargs.get('pk') == 'current' and request.user:
+    #         kwargs['pk'] = request.user.pk
+    #
+    #     return super(UserViewSet, self).dispatch(request, *args, **kwargs)
         
 # class UserView(viewsets.ModelViewSet):
 #     serializer_class = UserSerializer
