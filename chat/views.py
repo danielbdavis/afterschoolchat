@@ -17,6 +17,14 @@ class RoomViewSet(viewsets.ModelViewSet):
     serializer_class = RoomSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
+    def get_queryset(self):
+        """
+        This view should return a list of all rooms that the
+        currently authenticated user belongs to
+        """
+        user = self.request.user
+        return Room.objects.filter(members=user)
+
 
 class MessageViewSet(viewsets.ModelViewSet):
     queryset = Message.objects.all()
