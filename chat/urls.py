@@ -12,7 +12,6 @@ router = routers.DefaultRouter()
 router.register(r'rooms', RoomViewSet)
 router.register(r'messages', MessageViewSet)
 router.register(r'users', UserViewSet)
-# router.register(r'accounts', views.UserView, 'list')
 
 urlpatterns = [
     url(r'^', include(router.urls)),
