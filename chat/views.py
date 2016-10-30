@@ -35,8 +35,7 @@ class MessageViewSet(viewsets.ModelViewSet):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-    
+
     def get_object(self):
         print_request(self.request)
         
