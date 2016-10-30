@@ -9,7 +9,7 @@ from .models import Message
 from .serializers import RoomSerializer
 from .serializers import MessageSerializer
 from .serializers import UserSerializer
-from print_request import *
+from .print_request import *
 
 
 class RoomViewSet(viewsets.ModelViewSet):
